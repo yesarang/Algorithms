@@ -45,6 +45,7 @@ int main()
         {0,0,1,0,1,0}
     };
 
+    // adjancency matrix
     vector<vector<int> > g1;
     for (int i = 0; i < 6; ++i) {
         g1.push_back(vector<int>(&a1[i][0], &a1[i][6]));
