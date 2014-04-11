@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -8,75 +9,79 @@ enum Direction {
 };
 
 struct Node {
-	int data;
+	string name;
 	Direction dir;
 	Node* left;
 	Node* right;
+	Node(const string& nm, Node* l = 0, Node* r = 0)
+		: name(nm), dir(LEFT), left(l), right(r)
+	{}
 };
-
-struct Tree {
-	Node* root;
-};
-
-Tree t = { 0 };
 
 bool isLeaf(Node* pNode) {
 	return !pNode->left && !pNode->right;
 }
 
-void insert(Node*& pNode, int data) {
+void insert(Node*& pNode, const string& name) {
 	// special case handling: there's no element in the tree
 	if (pNode == 0) {
-		pNode = new Node;
-		pNode->data = data;
-		pNode->dir = LEFT;
-		pNode->left = 0;
-		pNode->right = 0;
+		pNode = new Node(name);
 		return;
 	}
 
 	if (isLeaf(pNode)) {
-		Node* pNewLeaf = new Node();
-		pNewLeaf->data = data;
-		pNewLeaf->dir = LEFT;
-		pNewLeaf->left = 0;
-		pNewLeaf->right = 0;
-		Node* pNewNode = new Node();
-		pNewNode->left = pNode;
-		pNewNode->right = pNewLeaf;
-		pNewNode->dir = LEFT;
+		Node* pNewLeaf = new Node(name);
+		Node* pNewNode = new Node("winner", pNode, pNewLeaf);
 		pNode = pNewNode;
 		return;
 	}
 
 	// toggling the direction
 	if (pNode->dir == LEFT) {
-		insert(pNode->left, data);
+		insert(pNode->left, name);
 		pNode->dir = RIGHT;
 	}
 	else {
-		insert(pNode->right, data);
+		insert(pNode->right, name);
 		pNode->dir = LEFT;
 	}
 }
 
-void dfs(Node* pNode) {
-	if (isLeaf(pNode)) {
-		cout << pNode->data << endl;
-		return;
+string spaces(int level) {
+	string s;
+	for (; level > 0; --level) {
+		s += "  ";
 	}
+	return s;
+}
 
-	dfs(pNode->left);
-	dfs(pNode->right);
-	cout << "winner" << endl;
+void print_pre_order(Node* pNode, int level) {
+	cout << spaces(level) << pNode->name << endl;
+
+	if (pNode->left)
+		print_pre_order(pNode->left, level + 1);
+	if (pNode->right)
+		print_pre_order(pNode->right, level + 1);
 }
 
 int main() {
-	int arr[10] = {1,2,3,4,5,6,7,8,9,10};
-	for (int i = 0; i < 10; ++i) {
-		insert(t.root, arr[i]);
+	const char* names[] = {
+		"kim",
+		"chester",
+		"jasmin",
+		"suji",
+		"john",
+		"alvin",
+		"jennifer",
+		"ron",
+		"justin",
+		"clinton"
+	};
+	Node* root = 0;
+	for (int i = 0; i < sizeof(names)/sizeof(char*); ++i) {
+		insert(root, names[i]);
 	}
 
-	dfs(t.root);
+	print_pre_order(root, 0);
 }
 
