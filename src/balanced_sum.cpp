@@ -105,7 +105,7 @@ int main() {
 	cout << "algorithm2 for arr3: " << pos << endl;
 
 	pos = get_balanced_sum_pos3(vi);
-	cout << "algorithm3 for arr2: " << pos << endl;
+	cout << "algorithm3 for arr3: " << pos << endl;
 
 	int arr4[] = {
 		-2,-2,-2,-2,0,-1,-1,-1,-1,-1,-1,-1,-1
