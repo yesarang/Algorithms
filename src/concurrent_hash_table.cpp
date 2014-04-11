@@ -10,21 +10,13 @@ using namespace std;
 const int HASH_TBL_SZ = 4095;
 
 typedef pair<int,int> key_value_pair_t;
-typedef list<key_value_pair_t>::iterator key_value_pair_pos_t;
+typedef list<key_value_pair_t>::const_iterator key_value_pair_pos_t;
 typedef pair<mutex,list<key_value_pair_t> > locked_list_t;
 
 vector<locked_list_t> hash_table(HASH_TBL_SZ);
 
-unsigned hash(int key) {
+unsigned my_hash(int key) {
 	return static_cast<unsigned>(key) % HASH_TBL_SZ;
-}
-
-bool hash_table_is_key_exist(int key) {
-	unsigned hash_val = hash(key);
-	{
-		lock_guard lck(hash_table[hash_val].first);
-		return hash_table_is_key_exist_impl(hash_table[hash_val].second);
-	}
 }
 
 bool hash_table_is_key_exist_impl(const list<key_value_pair_t>& list, int key) {
@@ -36,10 +28,18 @@ bool hash_table_is_key_exist_impl(const list<key_value_pair_t>& list, int key) {
 	return false;
 }
 
-bool hash_table_insert(int key, int val) {
-	unsigned hash_val = hash(key);
+bool hash_table_is_key_exist(int key) {
+	unsigned hash_val = my_hash(key);
 	{
-		lock_guard lck(hash_table[hash_val].first;
+		lock_guard<mutex> lck(hash_table[hash_val].first);
+		return hash_table_is_key_exist_impl(hash_table[hash_val].second, key);
+	}
+}
+
+bool hash_table_insert(int key, int val) {
+	unsigned hash_val = my_hash(key);
+	{
+		lock_guard<mutex> lck(hash_table[hash_val].first);
 		// first check whether the key is already present
 		if (hash_table_is_key_exist_impl(hash_table[hash_val].second, key)) {
 			return false;
@@ -51,9 +51,9 @@ bool hash_table_insert(int key, int val) {
 }
 
 pair<bool,int> hash_table_get(int key) {
-	unsigned hash_val = hash(key);
+	unsigned hash_val = my_hash(key);
 	{
-		lock_guard lck(hash_table[hash_val].first;
+		lock_guard<mutex> lck(hash_table[hash_val].first);
 		for (key_value_pair_pos_t pos = hash_table[hash_val].second.begin();
 			 pos != hash_table[hash_val].second.end(); ++pos) {
 			if (pos->first == key) {
