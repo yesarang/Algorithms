@@ -1,3 +1,4 @@
+// This code should be compiled with c++11
 // check out whether this code works properly at http://ideone.com/7vJ1HT
 #include <iostream>
 #include <vector>
