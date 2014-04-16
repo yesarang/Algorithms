@@ -1,3 +1,4 @@
+// check out whether this code works properly at http://ideone.com/H7nOu6
 #include <iostream>
 #include <string>
 #include <vector>
@@ -17,24 +18,24 @@ struct Node {
 	Node(const string& n, Node* l, Node* r) : name(n), pLeft(l), pRight(r) {}
 };
 
-void dfs_pre_order(Node* pTree) {
+void print_pre_order(Node* pTree) {
 	cout << pTree->name << endl;
 	if (pTree->pLeft) {
-		dfs_pre_order(pTree->pLeft);
+		print_pre_order(pTree->pLeft);
 	}
 	if (pTree->pRight) {
-		dfs_pre_order(pTree->pRight);
+		print_pre_order(pTree->pRight);
 	}
 }
 
-bool is_same(Node* pTree1, Node* pTree2) {
+bool is_same_tree(Node* pTree1, Node* pTree2) {
 	if (pTree1->name != pTree2->name) {
 		return false;
 	}
-	if (pTree1->pLeft && pTree2->pLeft && !is_same(pTree1->pLeft, pTree2->pLeft)) {
+	if (pTree1->pLeft && pTree2->pLeft && !is_same_tree(pTree1->pLeft, pTree2->pLeft)) {
 		return false;
 	}
-	if (pTree1->pRight && pTree2->pRight && !is_same(pTree1->pRight, pTree2->pRight)) {
+	if (pTree1->pRight && pTree2->pRight && !is_same_tree(pTree1->pRight, pTree2->pRight)) {
 		return false;
 	}
 	return true;
@@ -114,7 +115,7 @@ int main() {
 	Node* right = new Node("soo");
 	Node* tree = new Node("kim", left, right);
 	cout << "before serialization & deserialization of case #1" << endl;
-	dfs_pre_order(tree);
+	print_pre_order(tree);
 
 	// serialize it
 	vector<uchar> buf;
@@ -124,16 +125,16 @@ int main() {
 	Node* newTree = 0;
 	vector<uchar>::iterator pos = buf.begin();
 	tree_deserialize(newTree, pos);
-	cout << "before serialization & deserialization of case #1" << endl;
-	dfs_pre_order(newTree);
+	cout << "after serialization & deserialization of case #1" << endl;
+	print_pre_order(newTree);
 
-	assert(is_same(tree, newTree));
+	assert(is_same_tree(tree, newTree));
 
 	// prepare a binary tree case #2
 	left->pLeft = new Node("jung");
 	left->pRight = new Node("kyun");
 	cout << "before serialization & deserialization of case #2" << endl;
-	dfs_pre_order(tree);
+	print_pre_order(tree);
 
 	// serialize it
 	buf.clear();
@@ -143,9 +144,9 @@ int main() {
 	newTree = 0;
 	pos = buf.begin();
 	tree_deserialize(newTree, pos);
-	cout << "before serialization & deserialization of case #2" << endl;
-	dfs_pre_order(newTree);
+	cout << "after serialization & deserialization of case #2" << endl;
+	print_pre_order(newTree);
 
-	assert(is_same(tree, newTree));
+	assert(is_same_tree(tree, newTree));
 }
 
