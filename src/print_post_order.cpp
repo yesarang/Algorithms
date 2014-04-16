@@ -1,3 +1,4 @@
+// check out whether this code works properly at http://ideone.com/SR6EVd
 #include <iostream>
 #include <vector>
 
