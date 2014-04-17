@@ -39,18 +39,8 @@ NodePair split(Node* root, int val) {
 		root->left_ = p.second;
 		return NodePair(p.first, root);
 	}
+	root->calc_size();
 }
-
-/*
-void print_in_order(Node* root) {
-	if (!root) {
-		return;
-	}
-	print_in_order(root->left_);
-	cout << root->val_ << " ";
-	print_in_order(root->right_);
-}
-*/
 
 string spaces(int level) {
 	string s;
@@ -75,9 +65,11 @@ Node* insert(Node* root, Node* node) {
 	if (node->priority_ <= root->priority_) {
 		if (node->val_ < root->val_) {
 			root->left_ = insert(root->left_, node);
+			root->calc_size();
 		}
 		else if (node->val_ > root->val_) {
 			root->right_ = insert(root->right_, node);
+			root->calc_size();
 		}
 		return root;
 	}
@@ -86,7 +78,31 @@ Node* insert(Node* root, Node* node) {
 	NodePair p = split(root, node->val_);
 	node->left_ = p.first;
 	node->right_ = p.second;
+	node->calc_size();
 	return node;
+}
+
+Node* kth(Node* root, int k) {
+	int lsz = root->left_ ? root->left_->size_ : 0;
+	if (k <= lsz)
+		return kth(root->left_, k);
+	else if (k == lsz + 1)
+		return root;
+	else
+		return kth(root->right_, k - lsz - 1);
+}
+
+int count_less_than(Node* root, int k) {
+	if (!root) {
+		return 0;
+	}
+	if (k <= root->val_) {
+		return count_less_than(root->left_, k);
+	}
+	else {
+		int lsz = root->left_ ? root->left_->size_ : 0;
+		return lsz + 1 + count_less_than(root->right_, k);
+	}
 }
 
 int main() {
@@ -96,8 +112,18 @@ int main() {
 	for (auto v : {1,2,3,4,5,6,7,8,9,10,11,12,13,14}) {
 		tree = insert(tree, new Node(v));
 	}
-
 	print_in_order(tree, 0);
+
+	Node* n = kth(tree, 10);
+	cout << "10th: " << n->val_ << endl;
+	n = kth(tree, 7);
+	cout << "7th: " << n->val_ << endl;
+	n = kth(tree, 13);
+	cout << "13th: " << n->val_ << endl;
+
+	cout << "# of elements < 5: " << count_less_than(tree, 5) << endl;
+	cout << "# of elements < 7: " << count_less_than(tree, 7) << endl;
+	cout << "# of elements < 9: " << count_less_than(tree, 9) << endl;
 
 	return 0;
 }
