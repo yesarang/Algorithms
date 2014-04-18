@@ -1,3 +1,4 @@
+// check out whether this code works properly at http://ideone.com/4BoWJ9
 // This algorithm find out the mininum element in an array of which elements are sorted but rotated
 // ex: 6,7,1,2,3,4,5
 // You may assume that every element is unique in this array
