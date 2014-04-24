@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <functional>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ struct node {
 	{}
 };
 
-void print_in_order(node* root) {
+void in_order_traverse(node* root, function<void(node*)> op) {
 	stack<node*> s;
 	node* c = root;
 	s.push(c);
@@ -24,7 +25,7 @@ void print_in_order(node* root) {
 		else {
 			while (!s.empty()) {
 				c = s.top();
-				cout << c->val_ << " ";
+				op(c);
 				s.pop();
 				if (c->right_) {
 					s.push(c->right_);
@@ -33,6 +34,12 @@ void print_in_order(node* root) {
 			}
 		}
 	}
+}
+
+void print_in_order(node* root) {
+	in_order_traverse(root, [](node* n) {
+		cout << n->val_ << " ";
+	});
 	cout << endl;
 }
 
