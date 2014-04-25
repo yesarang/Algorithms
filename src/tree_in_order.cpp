@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <functional>
+#include <utility>
 
 using namespace std;
 
@@ -10,6 +11,15 @@ struct node {
 	node* right_;
 	node(int val, node* left = nullptr, node* right = nullptr)
 		: val_(val), left_(left), right_(right)
+	{}
+};
+
+struct traverse_status {
+	node* n_;
+	bool left_complete_;
+	bool right_complete_;
+	traverse_status(node* n)
+		: n_(n), left_complete_(false), right_complete_(false)
 	{}
 };
 
@@ -61,36 +71,41 @@ void pre_order_traverse(node* root, function<void(node*)> op) {
 
 void post_order_traverse(node* root, function<void(node*)> op) {
 	// stack for traverse
-	stack<node*> s;
-	// stack for operation
-	stack<node*> p;
+	stack<traverse_status> s;
 	node* c = root;
 	s.push(c);
 	while (!s.empty()) {
-		c = s.top();
-		if (c->left_) {
-			s.push(c->left_);
+		traverse_status& st = s.top();
+		c = st.n_;
+		if (!st.left_complete_) {
+			if (c->left_) {
+				s.push(c->left_);
+			}
+			else {
+				st.left_complete_ = true;
+			}
+		}
+		else if (!st.right_complete_) {
+			if (c->right_) {
+				s.push(c->right_);
+			}
+			else {
+				st.right_complete_ = true;
+			}
 		}
 		else {
-			while (!s.empty()) {
-				c = s.top();
-				s.pop();
-				if (c->right_) {
-					s.push(c->right_);
-					p.push(c);
-					break;
+			op(c);
+			s.pop();
+			if (!s.empty()) {
+				traverse_status& parent_status = s.top();
+				if (!parent_status.left_complete_) {
+					parent_status.left_complete_ = true;
 				}
-				else {
-					op(c);
+				else if (!parent_status.right_complete_) {
+					parent_status.right_complete_ = true;
 				}
 			}
 		}
-	}
-
-	while (!p.empty()) {
-		c = p.top();
-		p.pop();
-		op(c);
 	}
 }
 
@@ -154,6 +169,21 @@ int main() {
 	print_pre_order(tree);
 	// 3 2 5 8 7 6 4 1
 	print_post_order(tree);
+
+	node* tree2 = new node(1,
+		new node(2,
+			new node(4),
+			new node(5)
+			),
+		new node(3,
+			new node(6),
+			new node(7)
+			)
+		);
+	// 4 5 2 6 7 3 1
+	print_post_order(tree2);
+	// 4 2 5 1 6 3 7
+	print_in_order(tree2);
 
 	return 0;
 }
