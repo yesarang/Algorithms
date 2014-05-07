@@ -38,20 +38,13 @@ void sort_stack2(stack<int>& s) {
 	ts.push(s.top());
 	s.pop();
 	while (!s.empty()) {
-		int need_pop = 0;
 		int temp = s.top();
 		s.pop();
 		while (!ts.empty() && temp > ts.top()) {
 			s.push(ts.top());
 			ts.pop();
-			++need_pop;
 		}
 		ts.push(temp);
-		while (need_pop > 0) {
-			ts.push(s.top());
-			s.pop();
-			--need_pop;
-		}
 	}
 	while (!ts.empty()) {
 		s.push(ts.top());
