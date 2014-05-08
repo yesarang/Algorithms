@@ -35,8 +35,6 @@ void sort_stack(stack<int>& s) {
 
 void sort_stack2(stack<int>& s) {
 	stack<int> ts;
-	ts.push(s.top());
-	s.pop();
 	while (!s.empty()) {
 		int temp = s.top();
 		s.pop();
