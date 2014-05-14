@@ -1,4 +1,4 @@
-// Write an algorithm to find the'next'node (i.e., in-order successor) of a given node
+// 4.6 Write an algorithm to find the'next'node (i.e., in-order successor) of a given node
 // in a binary search tree. You may assume that each node has a link to its parent
 #include <iostream>
 #include <memory>
@@ -24,22 +24,32 @@ struct Node {
 	{}
 };
 
+Node* get_left_most(Node* node) {
+	if (!node) {
+		return nullptr;
+	}
+
+	while (node->left_) {
+		node = node->left_;
+	}
+	return node;
+}
+
 Node* get_next(Node* node) {
 	if (!node) {
 		return nullptr;
 	}
 
 	if (node->right_) {
-		return node->right_;
-	}
-	else if (node->parent_ && node->parent_->left_ == node) {
-		return node->parent_;
+		return get_left_most(node->right_);
 	}
 	else {
-		while (node->parent_ && node->parent_->right_ == node) {
+		Node* parent = node->parent_;
+		while (parent && parent->left_ != node) {
 			node = node->parent_;
+			parent = parent->parent_;
 		}
-		return node->parent_;
+		return parent;
 	}
 }
 
@@ -52,8 +62,8 @@ int main() {
 				new Node(3)
 				),
 			new Node(5,
-				nullptr,
-				new Node(6)
+				new Node(6),
+				nullptr
 				)
 			);
 
