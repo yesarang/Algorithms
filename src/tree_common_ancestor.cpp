@@ -71,7 +71,7 @@ bool contains(Node::Ptr root, Node::Ptr node) {
 	}
 }
 
-// This algorithm assumes that node1 & nodes in the tree root
+// This algorithm assumes that node1 & node2 in the tree root
 Node::Ptr get_common_ancestor_impl(Node::Ptr root, Node::Ptr node1, Node::Ptr node2) {
 	if (!root) {
 		return nullptr;
