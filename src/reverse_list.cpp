@@ -25,6 +25,22 @@ Node* reverse_list(Node* head) {
 	return head;
 }
 
+Node* reverse_list2_impl(Node* new_head, Node* cur) {
+	if (!cur) {
+		return new_head;
+	}
+
+	// Need to remember next node in advance because we are about to modify the next pointer.
+	Node* next = cur->next;
+	cur->next = new_head;
+	// Now 'cur' became the new head
+	return reverse_list2_impl(cur, next);
+}
+
+Node* reverse_list2(Node* head) {
+	return reverse_list2_impl(nullptr, head);
+}
+
 void print_list(Node* head) {
 	while (head) {
 		cout << head->data << " ";
@@ -36,8 +52,7 @@ void print_list(Node* head) {
 int main() {
 	Node* head = new Node(1, new Node(2, new Node(3, nullptr)));
 	print_list(head);
-	head = reverse_list(head);
-	print_list(head);
-
+	print_list(head = reverse_list(head));
+	print_list(head = reverse_list(head));
 	return 0;
 }
