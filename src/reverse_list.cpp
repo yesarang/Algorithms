@@ -53,6 +53,9 @@ int main() {
 	Node* head = new Node(1, new Node(2, new Node(3, nullptr)));
 	print_list(head);
 	print_list(head = reverse_list(head));
-	print_list(head = reverse_list(head));
+	print_list(head = reverse_list2(head));
+
+	Node* list = new Node(4, nullptr);
+	print_list(list = reverse_list2(list));
 	return 0;
 }
