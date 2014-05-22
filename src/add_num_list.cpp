@@ -56,7 +56,7 @@ void print_num_list(Node* list) {
 }
 
 int main() {
-	Node* l1{new Node(1, nullptr)};
+	Node* l1{new Node(0, new Node(1, nullptr))};
 	print_num_list(l1);
 	Node* l2{new Node(9, new Node(9, new Node(9, nullptr)))};
 	print_num_list(l2);
