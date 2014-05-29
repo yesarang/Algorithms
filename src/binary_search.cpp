@@ -4,7 +4,7 @@ using namespace std;
 
 int*
 binary_search(int* start, int* end, int data) {
-    if (start == end) {
+    if (start >= end) {
         if (data == *start) {
             return start;
         }
@@ -17,12 +17,9 @@ binary_search(int* start, int* end, int data) {
     if (data > *middle) {
         return binary_search(middle + 1, end, data);
     }
-    else if (data < *middle) {
+	else {
         return binary_search(start, middle, data);
-    }
-    else if (data == *middle) {
-        return middle;
-    }
+	}
 }
 
 int main()
