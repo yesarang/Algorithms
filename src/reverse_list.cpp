@@ -8,21 +8,21 @@ struct Node {
 	Node(int d, Node* n) : data(d), next(n) {}
 };
 
-Node* reverse_list(Node* head) {
-	if (!head) {
-		return head;
+Node* reverse_list(Node* cur) {
+	if (!cur) {
+		return cur;
 	}
 
-	Node* cur = nullptr;
-	Node* next;
-	while (head->next) {
-		next = head->next;
-		head->next = cur;
-		cur = head;
-		head = next;
+	Node* prev = nullptr;
+	Node* next = cur->next;
+	while (next) {
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+		next = next->next;
 	}
-	head->next = cur;
-	return head;
+	cur->next = prev;
+	return cur;
 }
 
 Node* reverse_list2_impl(Node* new_head, Node* cur) {
