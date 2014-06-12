@@ -1,3 +1,17 @@
+// An algorithm to read a combined stream
+//
+// A combined stream is a stream consisting of multiple files.
+// read operation should try to read data from the next file when
+// a file reaches the end of file.
+// 
+// ex) file1: "abcde", file2 : "fghij", file3 : "klmno"
+// read(buf, 3)--> "abc"
+// read(buf, 3)--> "def"
+// read(buf, 3)--> "ghi"
+// read(buf, 3)--> "jkl"
+// read(buf, 3)--> "mno"
+// read(buf, 3)--> ""
+//
 #include <sstream>
 #include <string>
 #include <vector>
