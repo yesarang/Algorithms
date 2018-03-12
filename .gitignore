@@ -19,3 +19,8 @@
 *.exe
 *.out
 *.app
+/Algorithms/.vs/Algorithms/v15
+/Algorithms/Debug
+/Algorithms/stack_of_boxes/Debug
+/ways_robot_move/Debug
+/.vs/Algorithms/v15
