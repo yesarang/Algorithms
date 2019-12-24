@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ways_to_run_up_stairs", "Algorithms.vcxproj", "{2DC82E24-CF3C-4339-9C0F-05C6329BB5EA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ways_robot_move", "..\ways_robot_move\ways_robot_move.vcxproj", "{69B97727-7397-4157-A2CD-C28692ECE948}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stack_of_boxes", "stack_of_boxes\stack_of_boxes.vcxproj", "{3C2EFFDB-2E11-42DB-BC2A-683A89C5F303}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThreeSum", "ThreeSum\ThreeSum.vcxproj", "{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{3C2EFFDB-2E11-42DB-BC2A-683A89C5F303}.Release|x64.Build.0 = Release|x64
 		{3C2EFFDB-2E11-42DB-BC2A-683A89C5F303}.Release|x86.ActiveCfg = Release|Win32
 		{3C2EFFDB-2E11-42DB-BC2A-683A89C5F303}.Release|x86.Build.0 = Release|Win32
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Debug|x64.ActiveCfg = Debug|x64
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Debug|x64.Build.0 = Debug|x64
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Debug|x86.ActiveCfg = Debug|Win32
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Debug|x86.Build.0 = Debug|Win32
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Release|x64.ActiveCfg = Release|x64
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Release|x64.Build.0 = Release|x64
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Release|x86.ActiveCfg = Release|Win32
+		{EA296BE2-6BD5-4DF0-8C4F-09BC638FEE5A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
