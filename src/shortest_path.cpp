@@ -1,3 +1,5 @@
+// Given a directed graph, design an algorithm to find out a shortest path
+// between two nodes.
 // This code should be compiled with c++11
 // check out whether this code works properly at http://ideone.com/7vJ1HT
 #include <iostream>
@@ -15,6 +17,7 @@ bfs2(const vector<vector<int> >& graph, int start) {
     
     q.push(start);
     discovered[start] = true;
+	// start node's parent is itself
     parent[start] = start;
     cout << "discovered " << start << endl;
     
@@ -39,6 +42,7 @@ bfs2(const vector<vector<int> >& graph, int start) {
 vector<int>
 shortest_path_of(const vector<int>& parent, int target) {
     vector<int> path(1, target);
+	// start node's parent is itself
     while (target != parent[target]) {    // from target to start
         target = parent[target];
         path.push_back(target);
@@ -55,24 +59,15 @@ get_shortest_path(const vector<vector<int>>& graph, int start, int target) {
 
 int main()
 {
-#define NELEM 7
-    // adjancency list
-    int a1[NELEM][NELEM+1] = {
-        {1,2,-1},        // 0 -> 1, 2
-        {0,2,6,-1},      // 1 -> 0, 2, 6
-        {0,1,3,5,-1},    // 2 -> 0, 1, 3, 5
-        {2,4,-1},        // 3 -> 2, 4
-        {3,5,6,-1},      // 4 -> 3, 5, 6
-        {2,4,6,-1},      // 5 -> 2, 4, 6
-        {1,4,6,-1}       // 6 -> 1, 4, 6
-    };
-
-    vector<vector<int> > g1(NELEM);
-    for (int i = 0; i < NELEM; ++i) {
-        for (int j = 0; a1[i][j] != -1; ++j) {
-            g1[i].push_back(a1[i][j]);
-        }
-    }
+	vector<vector<int> > g1{
+		vector<int>{1, 2},
+		vector<int>{0, 2, 6},
+		vector<int>{0, 1, 3, 5},
+		vector<int>{2, 4},
+		vector<int>{3, 5, 6},
+		vector<int>{2, 4, 6},
+		vector<int>{1, 4, 6}
+	};
 
     vector<int> spath = get_shortest_path(g1, 0, 4);
     for (auto v : spath) {
