@@ -9,7 +9,7 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     vector<vector<int>> ret;
 
     size_t n = nums.size();
-    for (int i = 0; i < n - 2;) {
+    for (size_t i = 0; i < n - 2;) {
         size_t l = i + 1;
         size_t r = n - 1;
         int target = -nums[i];
