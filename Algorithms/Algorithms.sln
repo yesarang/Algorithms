@@ -85,6 +85,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "regex", "regex\regex.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "longest_valid_paren", "longest_valid_paren\longest_valid_paren.vcxproj", "{AEC69E70-0DE2-41E1-A24B-DD03F4DB719F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "equal_range", "..\equal_range\equal_range.vcxproj", "{7C148111-4A41-4DD7-AF54-502BEECE7CC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -421,6 +423,14 @@ Global
 		{AEC69E70-0DE2-41E1-A24B-DD03F4DB719F}.Release|x64.Build.0 = Release|x64
 		{AEC69E70-0DE2-41E1-A24B-DD03F4DB719F}.Release|x86.ActiveCfg = Release|Win32
 		{AEC69E70-0DE2-41E1-A24B-DD03F4DB719F}.Release|x86.Build.0 = Release|Win32
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Debug|x64.ActiveCfg = Debug|x64
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Debug|x64.Build.0 = Debug|x64
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Debug|x86.ActiveCfg = Debug|Win32
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Debug|x86.Build.0 = Debug|Win32
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Release|x64.ActiveCfg = Release|x64
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Release|x64.Build.0 = Release|x64
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Release|x86.ActiveCfg = Release|Win32
+		{7C148111-4A41-4DD7-AF54-502BEECE7CC6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
