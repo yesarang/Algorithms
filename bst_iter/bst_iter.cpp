@@ -28,7 +28,13 @@ private:
 	}
 
 public:
-	bst_iter(node* root) : s(), c(get_first(root)) {}
+	bst_iter(node* root) : s(), c(nullptr) {
+		if (root)
+		{
+			c = get_first(root);
+		}
+	}
+
 	node* next() {
 		auto r = c;
 		if (c && c->r) {
@@ -63,3 +69,4 @@ int main()
 
 	return 0;
 }
+

@@ -61,7 +61,9 @@ void print(const vector<vector<int>>& solutions) {
 int main() {
     vector<int> nums1 = { 1, 1, 2 };
     vector<int> nums2 = { 0, 1, 0, 0, 9 };
+    vector<int> nums3 = { 1, 2, 3 };
 
     print(permuteUnique(nums1));
     print(permuteUnique(nums2));
+    print(permuteUnique(nums3));
 }
