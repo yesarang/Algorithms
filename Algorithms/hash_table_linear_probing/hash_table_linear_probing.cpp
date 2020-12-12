@@ -21,6 +21,7 @@ class HashTable {
 #include <iostream>
 #include <string>
 #include <vector>
+#include <tuple>
 
 using namespace std;
 
@@ -34,51 +35,7 @@ class hash_table {
     vector<kv_pair> vals;
     const hash<string> hash;
 
-public:
-    hash_table(int capacity)
-        : cap(capacity)
-        , vals(capacity, kv_pair{})
-        , hash()
-    {}
-
-    bool put(const string& key, const string& value)
-    {
-        auto h = hash(key);
-        auto oidx = h % cap;
-        auto i = oidx;
-
-        bool found = false;
-        while (vals[i].key) {
-            if (*(vals[i].key) == key) {
-                found = true;
-            }
-
-            ++i;
-            i %= cap;
-
-            if (i == oidx) {
-                cout << "hash table is full" << endl;
-                return false;
-            }
-        }
-
-        if (i != oidx) {
-            cout << "conflict! org pos = " << oidx << " new pos = " << i << endl;
-        }
-
-        if (!found) {
-            vals[i].key = new string(key);
-        }
-        else {
-            delete vals[i].val;
-        }
-
-        vals[i].val = new string(value);
-
-        return true;
-    }
-
-    const string* get(const string& key) const
+    tuple<size_t, size_t> find_key_idx(const string& key) const
     {
         auto h = hash(key);
         auto oidx = h % cap;
@@ -89,11 +46,52 @@ public:
             i %= cap;
 
             if (i == oidx) {
-                return nullptr;
+                return make_tuple(oidx, cap + 1);
             }
         }
 
+        return make_tuple(oidx, i);
+    }
+
+public:
+    hash_table(int capacity)
+        : cap(capacity)
+        , vals(capacity, kv_pair{})
+        , hash()
+    {}
+
+    bool put(const string& key, const string& value)
+    {
+        auto [oidx, i] = find_key_idx(key);
+
+		if (i > cap) {
+			cout << "hash table is full" << endl;
+			return false;
+		}
+
+	    if (i != oidx) {
+            cout << "conflict! org pos = " << oidx << " new pos = " << i << endl;
+        }
+
         if (!vals[i].key) {
+            cout << "inserting " << key << "=" << value << endl;
+            vals[i].key = new string(key);
+        }
+        else {
+            cout << "updating " << key << "=" << value << endl;
+            delete vals[i].val;
+        }
+
+        vals[i].val = new string(value);
+
+        return true;
+    }
+
+    const string* get(const string& key) const
+    {
+        auto [oidx, i] = find_key_idx(key);
+
+        if (i > cap || !vals[i].key) {
             return nullptr;
         }
         else {
@@ -123,6 +121,8 @@ int main()
     ht.put("I", "9");
     ht.put("J", "10");
     ht.put("K", "11");
+    ht.put("A", "12");
+    ht.put("J", "13");
 
     cout << safe_get(ht, "A") << endl;
     cout << safe_get(ht, "B") << endl;
@@ -136,3 +136,4 @@ int main()
     cout << safe_get(ht, "J") << endl;
     cout << safe_get(ht, "K") << endl;
 }
+
