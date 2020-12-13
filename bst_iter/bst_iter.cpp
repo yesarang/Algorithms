@@ -53,13 +53,14 @@ public:
 
 int main()
 {
-	Node* tree =
+	Node* t1 =
 		new Node(10,
 			new Node(5, nullptr, new Node(8)),
 			new Node(15, new Node(12), new Node(18))
 		);
 
-	BstIter i(tree, 1);
+	BstIter i(t1, 1);
+	cout << "t1:" << endl;
 	while (i.has_next()) {
 		cout << i.next()->val << endl;
 	}
@@ -78,8 +79,16 @@ int main()
 		);
 
 	BstIter i2(t2, 5);
+	cout << "t2:" << endl;
 	while (i2.has_next()) {
 		cout << i2.next()->val << endl;
+	}
+
+	Node* t3 = nullptr;
+	BstIter i3(t3, INT_MIN);
+	cout << "t3:" << endl;
+	while (i3.has_next()) {
+		cout << i3.next()->val << endl;
 	}
 
 	return 0;
