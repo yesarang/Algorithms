@@ -40,17 +40,17 @@ bool is_bipartite_helper(
 	const vector<vector<int>>& graph,
 	int i,
 	vector<int>& visited,
-	bool toggle)
+	int group)
 {
 	for (auto n : graph[i]) {
 		if (visited[n] != -1) {
-			if (visited[n] != toggle) {
+			if (visited[n] != group) {
 				return false;
 			}
 		}
 		else {
-			visited[n] = toggle;
-			if (!is_bipartite_helper(graph, n, visited, !toggle)) {
+			visited[n] = group;
+			if (!is_bipartite_helper(graph, n, visited, group ^ 1)) {
 				return false;
 			}
 		}
@@ -68,9 +68,9 @@ bool isBipartite(vector<vector<int>>& graph)
 			visited[i] = 0;
 		}
 
-		int toggle = visited[i];
+		int group = visited[i];
 
-		if (!is_bipartite_helper(graph, i, visited, toggle ^ 1)) {
+		if (!is_bipartite_helper(graph, i, visited, group ^ 1)) {
 			return false;
 		}
 	}
