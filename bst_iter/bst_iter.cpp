@@ -7,65 +7,80 @@
 
 using namespace std;
 
-struct node {
-	node* l;
-	node* r;
-	int v;
-	node(int v, node* l = nullptr, node* r = nullptr) : v(v), l(l), r(r) {}
+struct Node {
+	int val;
+	Node* left;
+	Node* right;
+	Node(int v, Node* l = nullptr, Node* r = nullptr) : val(v), left(l), right(r) {}
 };
 
-class bst_iter {
+class BstIter {
 private:
-	stack<node*> s;
-	node* c;
+	stack<Node*> s_;
 
-	node* get_first(node* n) {
-		while (n->l) {
-			s.push(n);
-			n = n->l;
+	void traverse(Node* n) {
+		while (n) {
+			s_.push(n);
+			n = n->left;
 		}
-		return n;
 	}
 
 public:
-	bst_iter(node* root) : s(), c(nullptr) {
-		if (root)
-		{
-			c = get_first(root);
+	BstIter(Node* root, int start) : s_() {
+		traverse(root); 
+		while (!s_.empty() && s_.top()->val < start) {
+			next();
 		}
 	}
 
-	node* next() {
-		auto r = c;
-		if (c && c->r) {
-			c = get_first(c->r);
+	bool has_next() const {
+		return !s_.empty();
+	}
+
+	Node* next() {
+		if (s_.empty()) {
+			return nullptr;
 		}
-		else if (!s.empty()) {
-			c = s.top();
-			s.pop();
-		}
-		else {
-			c = nullptr;
-		}
-		return r;
+
+		auto ret = s_.top();
+		s_.pop();
+
+		traverse(ret->right);
+
+		return ret;
 	}
 };
 
 int main()
 {
-	node* tree =
-		new node(10,
-			new node(5, nullptr, new node(8)),
-			new node(15, new node(12), new node(18))
+	Node* tree =
+		new Node(10,
+			new Node(5, nullptr, new Node(8)),
+			new Node(15, new Node(12), new Node(18))
 		);
 
-	bst_iter i(tree);
-	cout << i.next()->v << endl;
-	cout << i.next()->v << endl;
-	cout << i.next()->v << endl;
-	cout << i.next()->v << endl;
-	cout << i.next()->v << endl;
-	cout << i.next()->v << endl;
+	BstIter i(tree, 1);
+	while (i.has_next()) {
+		cout << i.next()->val << endl;
+	}
+
+	/*
+            6
+          /   \
+         3    15
+        / \   /
+       1   5 9
+	*/
+	Node* t2 =
+		new Node(6,
+			new Node(3, new Node(1), new Node(5)),
+			new Node(15, new Node(9))
+		);
+
+	BstIter i2(t2, 5);
+	while (i2.has_next()) {
+		cout << i2.next()->val << endl;
+	}
 
 	return 0;
 }
