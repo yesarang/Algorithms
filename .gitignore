@@ -1,13 +1,26 @@
+# Project files
+*.vcxproj.*
+*.recipe
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.tlog
+*.idb
+*.pdb
+*.log
+*.iobj
+*.ipdb
+*.ipch
+*.obj.enc
 
 # Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
+*.ilk
 
 # Compiled Static libraries
 *.lai
@@ -20,7 +33,9 @@
 *.out
 *.app
 /Algorithms/.vs/Algorithms/v15
+/Algorithms/.vs/Algorithms/v16
 /Algorithms/Debug
 /Algorithms/stack_of_boxes/Debug
 /ways_robot_move/Debug
 /.vs/Algorithms/v15
+/.vs/Algorithms/v16

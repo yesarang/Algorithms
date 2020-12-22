@@ -36,7 +36,7 @@ tuple<int, int, int> contains(node* n, node* n1, node* n2) {
 }
 
 int get_path_length(node* root, node* n1, node* n2) {
-	auto [l, _, _] = contains(root, n1, n2);
+	auto [l, _1, _2] = contains(root, n1, n2);
 	return l;
 }
 

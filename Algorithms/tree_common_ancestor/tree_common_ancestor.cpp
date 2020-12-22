@@ -31,7 +31,7 @@ tuple<node*, bool, bool> contains(node* n, node* n1, node* n2) {
 }
 
 node* common_ancestor(node* root, node* n1, node* n2) {
-	auto [n, _, _] = contains(root, n1, n2);
+	auto [n, _1, _2] = contains(root, n1, n2);
 	return n;
 }
 
